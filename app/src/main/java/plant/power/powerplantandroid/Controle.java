@@ -5,4 +5,5 @@ package plant.power.powerplantandroid;
  */
 
 public class Controle {
+
 }

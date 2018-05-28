@@ -17,16 +17,16 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
         tilePanel = findViewById(R.id.tilepanel);
 
-        tilePanel.setTile(0,0,new LineTile(1));
+        tilePanel.setTile(0,0,new LineTile(0));
+
+        tilePanel.setListener(this);
 
     }
 
 
-
-
-
     @Override
     public boolean onClick(int xTile, int yTile) {
+        tilePanel.setTile(xTile,yTile,new LineTile(1));
         return false;
     }
 
