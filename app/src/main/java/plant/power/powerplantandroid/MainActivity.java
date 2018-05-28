@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
         tilePanel = findViewById(R.id.tilepanel);
 
-
+        tilePanel.setTile(0,0,new LineTile(1));
 
     }
 
