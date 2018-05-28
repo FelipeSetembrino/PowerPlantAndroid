@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pt.isel.tiledemo.TileDemoActivity">
+
+    <pt.isel.poo.tile.TilePanel
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:widthTiles="5"
+        app:heightTiles="6"
+        app:gridLine="5"
+        android:id="@+id/tilepanel"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radius_desc"
+            android:textSize="15pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:textSize="15pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radius"
+            android:textSize="15pt"/>
+    </LinearLayout>
+</LinearLayout>
