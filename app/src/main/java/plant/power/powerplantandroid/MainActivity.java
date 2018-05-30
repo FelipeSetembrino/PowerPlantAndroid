@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
         tilePanel = findViewById(R.id.tilepanel);
 
         tilePanel.setTile(0,0,new LineTile(0));
+        tilePanel.setTile(0,1,new CurveTile(0));
+        tilePanel.setTile(0,2,new TeeTile(3));
+        tilePanel.setTile(0,3,new HouseTile(0, this));
+        tilePanel.setTile(0,4,new PowerTile(0, this));
 
         tilePanel.setListener(this);
 
