@@ -1,21 +1,31 @@
 package plant.power.powerplantandroid;
 
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
 import TilePacket.OnTileTouchListener;
 import TilePacket.TilePanel;
+import plant.power.powerplantandroid.Model.Loader;
+import plant.power.powerplantandroid.Model.Plant;
+import plant.power.powerplantandroid.ViewTile.CurveTile;
+import plant.power.powerplantandroid.ViewTile.HouseTile;
+import plant.power.powerplantandroid.ViewTile.LineTile;
+import plant.power.powerplantandroid.ViewTile.TeeTile;
 
 public class MainActivity extends AppCompatActivity implements OnTileTouchListener {
 
     private TilePanel tilePanel;
-    private Random rdm = new Random();
-    private int tileRan;
-    private int position;
-    private static final int TILE_NUMBER = 5;
-    private static final int POSITION_NUMBER = 3;
+    private Plant model;
+    private int num;
+    private static final String LEVELS_FILE = "Levels.txt"; // Name of levels file
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +34,9 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
         tilePanel = findViewById(R.id.tilepanel);
 
-        load();
+        num = 0;
+        loadLevel(num);
+
         /*
         tilePanel.setTile(0,0,new LineTile(0));
         tilePanel.setTile(0,1,new CurveTile(0));
@@ -36,36 +48,25 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
     }
 
-    private void load(){
-        for (int tileY = 0; tileY < tilePanel.getHeightInTiles(); ++tileY){
-            for (int tileX = 0; tileX < tilePanel.getWidthInTiles(); ++tileX){
-                tileRan = rdm.nextInt(TILE_NUMBER)+1;
-                position = rdm.nextInt(POSITION_NUMBER)+1;
-                switch (tileRan){
-                    case 1:
-                        tilePanel.setTile(tileX,tileY,new LineTile(position));
-                        break;
-                    case 2:
-                        tilePanel.setTile(tileX,tileY,new CurveTile(position));
-                        break;
-                    case 3:
-                        tilePanel.setTile(tileX,tileY,new TeeTile(position));
-                        break;
-                    case 4:
-                        tilePanel.setTile(tileX,tileY,new HouseTile(position, this));
-                        break;
-                    case 5:
-                        tilePanel.setTile(tileX,tileY,new PowerTile(position, this));
-                        break;
-                }
-            }
-        }
-    }
-
-
     @Override
     public boolean onClick(int xTile, int yTile) {
-        load();
+        /*if (tilePanel.getTile(xTile,yTile) instanceof LineTile){
+            position = line.getTilePosition() + 1;
+            line.setPosition(position);
+            tilePanel.setTile(xTile,yTile,new LineTile());
+        }
+        else if (tilePanel.getTile(xTile,yTile) instanceof CurveTile){
+
+        }
+        else if (tilePanel.getTile(xTile,yTile) instanceof TeeTile){
+
+        }
+        else if (tilePanel.getTile(xTile,yTile) instanceof HouseTile){
+
+        }
+        //load();
+        return false;
+        */
         return false;
     }
 
@@ -76,11 +77,39 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
     @Override
     public void onDragEnd(int x, int y) {
-
     }
 
     @Override
     public void onDragCancel() {
+    }
 
+    /**
+     * Load the model of the indicated level from the LEVELS_FILE file
+     * @param n The level to load (1..MAX)
+     * @return true if the level is loaded
+     */
+    private boolean loadLevel(int n) {
+        Scanner in = null;
+        try {
+            AssetManager initFile = getAssets();
+            in = new Scanner(new FileInputStream(LEVELS_FILE)); // Scanner to read the file
+            model = new Loader(in).load(n);                     // Load level from scanner
+            //model.setListener( listener );                      // Set the listener of modifications
+            //view = new TilePanel(model.getHeight(),model.getWidth(),CellTile.SIDE);
+            //win.clear();
+           // view.center(WIN_HEIGHT,WIN_WIDTH);
+            //status.setLevel(n);
+            //status.setMoves(0);
+            return true;
+        } catch (FileNotFoundException | InputMismatchException e) {
+            System.out.println("Error loading file \""+LEVELS_FILE+"\":\n"+e.getMessage());
+            return false;
+        } catch (Loader.LevelFormatException e) {
+            System.out.println(e.getMessage()+" in file \""+LEVELS_FILE+"\"");
+            System.out.println(" "+e.getLineNumber()+": "+e.getLine());
+            return false;
+        } finally {
+            if (in!=null) in.close();   // Close the file
+        }
     }
 }

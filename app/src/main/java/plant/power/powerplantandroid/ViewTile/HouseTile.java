@@ -1,4 +1,4 @@
-package plant.power.powerplantandroid;
+package plant.power.powerplantandroid.ViewTile;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,7 @@ import android.graphics.Paint;
 
 import ImgPacket.Img;
 import TilePacket.Tile;
+import plant.power.powerplantandroid.R;
 
 /**
  * Created by felip on 30/05/2018.

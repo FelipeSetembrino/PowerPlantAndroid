@@ -1,4 +1,4 @@
-package plant.power.powerplantandroid;
+package plant.power.powerplantandroid.ViewTile;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
