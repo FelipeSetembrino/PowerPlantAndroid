@@ -39,8 +39,7 @@ import java.util.Scanner;
         public Plant load(int level) throws LevelFormatException {
             findHeader(level);                  // Find the header line
             model = new Plant();    // Build the model
-            model.setHeight(height);
-            model.setWidth(width);
+            model.setWidthHeight(width, height);
             loadGrid();                         // Load cells information
             model.init();
             return model;
