@@ -3,9 +3,11 @@ package plant.power.powerplantandroid;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -91,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
     private boolean loadLevel(int n) {
         Scanner in = null;
         try {
-            AssetManager initFile = getAssets();
-            in = new Scanner(new FileInputStream(LEVELS_FILE)); // Scanner to read the file
+            InputStream initFile = getResources().openRawResource(R.raw.levels);
+            in = new Scanner(initFile);
             model = new Loader(in).load(n);                     // Load level from scanner
             //model.setListener( listener );                      // Set the listener of modifications
             //view = new TilePanel(model.getHeight(),model.getWidth(),CellTile.SIDE);
@@ -101,14 +103,17 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
             //status.setLevel(n);
             //status.setMoves(0);
             return true;
-        } catch (FileNotFoundException | InputMismatchException e) {
+        }
+        catch (InputMismatchException e) {
             System.out.println("Error loading file \""+LEVELS_FILE+"\":\n"+e.getMessage());
             return false;
-        } catch (Loader.LevelFormatException e) {
+        }
+        catch (Loader.LevelFormatException e) {
             System.out.println(e.getMessage()+" in file \""+LEVELS_FILE+"\"");
             System.out.println(" "+e.getLineNumber()+": "+e.getLine());
             return false;
-        } finally {
+        }
+        finally {
             if (in!=null) in.close();   // Close the file
         }
     }

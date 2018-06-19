@@ -18,7 +18,7 @@ import java.util.Scanner;
         private int lineNumber;     // Current line number
         private String line;        // Text of current line
         private Plant model;      // The loaded model
-        private int height, width;   // Dimensions of current level
+        private int height, width; // Dimensions of current level
 
         /**
          * Build the loader to read it from the file through the scanner
@@ -27,6 +27,7 @@ import java.util.Scanner;
         public Loader(Scanner in) {
             this.in = in;
         }
+
 
         /**
          * Reads the level identified by the number.<br/>
@@ -38,6 +39,8 @@ import java.util.Scanner;
         public Plant load(int level) throws LevelFormatException {
             findHeader(level);                  // Find the header line
             model = new Plant();    // Build the model
+            model.setHeight(height);
+            model.setWidth(width);
             loadGrid();                         // Load cells information
             model.init();
             return model;

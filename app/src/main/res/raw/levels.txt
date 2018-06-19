@@ -1,15 +1,15 @@
-#1 2 x 2
+#0 2 x 2
 P H
 c c
 
-#2 5 x 5
+#1 5 x 5
 H - - - c
 c T c . -
 P - T c -
 H T - T T
 H c H H H
 
-#3 8 x 9
+#2 8 x 9
 H H c c H H H - c
 c - T T c c c - T
 c - c - c - c . -

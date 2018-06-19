@@ -10,7 +10,33 @@ import plant.power.powerplantandroid.Cells.ramoCell;
 public abstract class Cell {
     protected static Plant model;
 
+
     public static Cell newInstance(char type) {
+
+        Cell cell = null;
+
+        if (type == 'P') {
+            cell = new fonteCell();
+        }
+        else if (type=='H'){
+            cell =  new casaCell();
+        }
+        else if (type=='-'){
+            cell =  new linhaCell();
+        }
+        else if (type=='c'){
+            cell =  new curvaCell();
+        }
+        else if (type=='T'){
+            cell =  new ramoCell();
+        }
+        else if (type=='.'){
+            cell =  new espacoCell();
+        }
+
+        return cell;
+
+        /*
         switch (type){
             case 'P':
                 return new fonteCell();
@@ -24,9 +50,9 @@ public abstract class Cell {
                 return new ramoCell();
             case'.':
                 return new espacoCell();
-            default:
-                return null;
         }
+        return null;
+        */
     }
 
 
