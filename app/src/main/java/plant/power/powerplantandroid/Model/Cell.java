@@ -17,43 +17,21 @@ public abstract class Cell {
 
         if (type == 'P') {
             cell = new fonteCell();
-        }
-        else if (type=='H'){
-            cell =  new casaCell();
-        }
-        else if (type=='-'){
-            cell =  new linhaCell();
-        }
-        else if (type=='c'){
-            cell =  new curvaCell();
-        }
-        else if (type=='T'){
-            cell =  new ramoCell();
-        }
-        else if (type=='.'){
-            cell =  new espacoCell();
+        } else if (type == 'H') {
+            cell = new casaCell();
+        } else if (type == '-') {
+            cell = new linhaCell();
+        } else if (type == 'c') {
+            cell = new curvaCell();
+        } else if (type == 'T') {
+            cell = new ramoCell();
+        } else if (type == '.') {
+            cell = new espacoCell();
         }
 
         return cell;
-
-        /*
-        switch (type){
-            case 'P':
-                return new fonteCell();
-            case'H':
-                return new casaCell();
-            case'-':
-                return new linhaCell();
-            case'c':
-                return new curvaCell();
-            case'T':
-                return new ramoCell();
-            case'.':
-                return new espacoCell();
-        }
-        return null;
-        */
     }
+
 
 
     //TODO:

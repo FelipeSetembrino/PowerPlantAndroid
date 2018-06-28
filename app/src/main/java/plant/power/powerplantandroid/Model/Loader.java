@@ -2,7 +2,9 @@ package plant.power.powerplantandroid.Model;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-    /**
+import TilePacket.TilePanel;
+
+/**
      * Loads a game level from the file read with the scanner indicated in the constructor.<br/>
      * The file contains several levels.<br/>
      * Each level has a number from 1 to N.<br/><br/>
@@ -41,7 +43,6 @@ import java.util.Scanner;
             model = new Plant();    // Build the model
             model.setWidthHeight(width, height);
             loadGrid();                         // Load cells information
-            model.init();
             return model;
         }
 

@@ -7,7 +7,16 @@ import plant.power.powerplantandroid.Model.Cell;
  */
 
 public class casaCell extends Cell {
-    public void casaCell(){
 
+    public int rot;
+
+    public void casaCell(){
+        if (rot == 3)rot = 0;
+        rot++;
     }
+
+    public int getcasaCellRot(){
+        return rot;
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Switch;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,18 +15,29 @@ import java.util.Random;
 import java.util.Scanner;
 
 import TilePacket.OnTileTouchListener;
+import TilePacket.Tile;
 import TilePacket.TilePanel;
+import plant.power.powerplantandroid.Cells.casaCell;
+import plant.power.powerplantandroid.Cells.curvaCell;
+import plant.power.powerplantandroid.Cells.espacoCell;
+import plant.power.powerplantandroid.Cells.fonteCell;
+import plant.power.powerplantandroid.Cells.linhaCell;
+import plant.power.powerplantandroid.Cells.ramoCell;
+import plant.power.powerplantandroid.Model.Cell;
 import plant.power.powerplantandroid.Model.Loader;
 import plant.power.powerplantandroid.Model.Plant;
 import plant.power.powerplantandroid.ViewTile.CurveTile;
 import plant.power.powerplantandroid.ViewTile.HouseTile;
 import plant.power.powerplantandroid.ViewTile.LineTile;
+import plant.power.powerplantandroid.ViewTile.PowerTile;
+import plant.power.powerplantandroid.ViewTile.SpaceTile;
 import plant.power.powerplantandroid.ViewTile.TeeTile;
 
 public class MainActivity extends AppCompatActivity implements OnTileTouchListener {
 
     private TilePanel tilePanel;
     private Plant model;
+    private Cell cell;
     private int num;
     private static final String LEVELS_FILE = "Levels.txt"; // Name of levels file
 
@@ -39,36 +51,28 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
         num = 0;
         loadLevel(num);
 
-        /*
-        tilePanel.setTile(0,0,new LineTile(0));
-        tilePanel.setTile(0,1,new CurveTile(0));
-        tilePanel.setTile(0,2,new TeeTile(3));
-        tilePanel.setTile(0,3,new HouseTile(0, this));
-        tilePanel.setTile(0,4,new PowerTile(0, this));
-        */
         tilePanel.setListener(this);
-
+        tilePanel.setSize(model.getWidth(),model.getHeight());
+        for (int w = 0; w < model.getWidth(); w++){
+            for (int h = 0; h < model.getWidth(); h++){
+                if (model.getCell(w,h) instanceof casaCell) tilePanel.setTile(w,h,new HouseTile(model.getCellPosition(w,h), this));
+                else if (model.getCell(w,h) instanceof curvaCell) tilePanel.setTile(w,h,new CurveTile(model.getCellPosition(w,h)));
+                else if (model.getCell(w,h) instanceof espacoCell) tilePanel.setTile(w,h,new SpaceTile());
+                else if (model.getCell(w,h) instanceof fonteCell) tilePanel.setTile(w,h,new PowerTile(model.getCellPosition(w,h), this));
+                else if (model.getCell(w,h) instanceof linhaCell) tilePanel.setTile(w,h,new LineTile(model.getCellPosition(w,h)));
+                else if (model.getCell(w,h) instanceof ramoCell) tilePanel.setTile(w,h,new TeeTile(model.getCellPosition(w,h)));
+            }
+        }
     }
 
     @Override
     public boolean onClick(int xTile, int yTile) {
-        /*if (tilePanel.getTile(xTile,yTile) instanceof LineTile){
-            position = line.getTilePosition() + 1;
-            line.setPosition(position);
-            tilePanel.setTile(xTile,yTile,new LineTile());
-        }
-        else if (tilePanel.getTile(xTile,yTile) instanceof CurveTile){
-
-        }
-        else if (tilePanel.getTile(xTile,yTile) instanceof TeeTile){
-
-        }
-        else if (tilePanel.getTile(xTile,yTile) instanceof HouseTile){
-
-        }
-        //load();
-        return false;
-        */
+        if (model.getCell(xTile,yTile) instanceof casaCell) tilePanel.setTile(xTile,yTile,new HouseTile(model.getCellPosition(xTile,yTile), this));
+        else if (model.getCell(xTile,yTile) instanceof curvaCell) tilePanel.setTile(xTile,yTile,new CurveTile(model.getCellPosition(xTile,yTile)));
+        else if (model.getCell(xTile,yTile) instanceof espacoCell) tilePanel.setTile(xTile,yTile,new SpaceTile());
+        else if (model.getCell(xTile,yTile) instanceof fonteCell) tilePanel.setTile(xTile,yTile,new PowerTile(model.getCellPosition(xTile,yTile), this));
+        else if (model.getCell(xTile,yTile) instanceof linhaCell) tilePanel.setTile(xTile,yTile,new LineTile(model.getCellPosition(xTile,yTile)));
+        else if (model.getCell(xTile,yTile) instanceof ramoCell) tilePanel.setTile(xTile,yTile,new TeeTile(model.getCellPosition(xTile,yTile)));
         return false;
     }
 

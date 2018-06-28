@@ -8,6 +8,8 @@ import plant.power.powerplantandroid.Model.Cell;
 
 public class fonteCell extends Cell {
 
+    private int rot = 0;
+
     public void fonteCell(){
 
     }

@@ -32,7 +32,7 @@ public class PowerTile implements Tile {
 
     @Override
     public void draw(Canvas canvas, int side) {
-       power.draw(canvas, side, side, p);
+        power.draw(canvas, side, side, p);
     }
 
     @Override

@@ -19,7 +19,8 @@ public class LineTile implements Tile {
         p.setColor(Color.rgb(122, 122, 82));
     }
 
-    public void LineTile(){
+    public LineTile(int position){
+        this.position = position;
     }
 
     public void setPosition(int position){
