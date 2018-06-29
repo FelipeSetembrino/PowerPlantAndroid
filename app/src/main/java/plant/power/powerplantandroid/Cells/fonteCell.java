@@ -8,10 +8,28 @@ import plant.power.powerplantandroid.Model.Cell;
 
 public class fonteCell extends Cell {
 
-    private int rot = 0;
+    private boolean[] side;
 
     public void fonteCell(){
 
+    }
+
+    public boolean[] getSideCell(int pos) {
+        switch (pos) {
+            case 0:
+                side = new boolean[]{true, true, true, true};
+                break;
+            case 1:
+                side = new boolean[]{true, true, true, true};
+                break;
+            case 2:
+                side = new boolean[]{true, true, true, true};
+                break;
+            case 3:
+                side = new boolean[]{true, true, true, true};
+                break;
+        }
+        return side;
     }
 
 }

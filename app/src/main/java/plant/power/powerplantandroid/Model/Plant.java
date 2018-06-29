@@ -1,5 +1,6 @@
 package plant.power.powerplantandroid.Model;
 
+import android.util.Log;
 
 import java.util.Random;
 
@@ -14,8 +15,10 @@ import plant.power.powerplantandroid.Cells.ramoCell;
 public class Plant {
 
     private Cell[][] map; // = new Cell[height][width];
+    private Cell[] map_neighbors = new Cell[4];
     private int width, height;
-    private int[][] cell_position;
+    public int[][] cell_position;
+    private int[] cell_neighbors_position = new int[4];
     Random ran = new Random();
 
     public Plant() {
@@ -39,11 +42,13 @@ public class Plant {
     }
 
     public int getCellPosition(int l, int i){
-        if (cell_position[i][l] == 3){
-            cell_position[i][l] = 0;
+        if (cell_position[l][i] == 3){
+            cell_position[l][i] = 0;
             return cell_position[l][i];
         }
-        return cell_position[l][i]++;
+        else{
+            return ++cell_position[l][i];
+        }
     }
 
     public int getWidth() {
@@ -53,25 +58,70 @@ public class Plant {
         return height;
     }
 
-    public void cellChanged(int l, int i){
-        if (map[l][i] instanceof casaCell) new casaCell();
-        else if (map[l][i] instanceof curvaCell);
-        else if (map[l][i] instanceof espacoCell);
-        else if (map[l][i] instanceof fonteCell);
-        else if (map[l][i] instanceof linhaCell);
-        else if (map[l][i] instanceof ramoCell);
-    }
+    public void cellRules(){
+        for (int h = 0; h < height; h++){
+            for (int w = 0; w < width; w++){
+                if (map[h][w] instanceof fonteCell){
+                    neighbor(h,w);
+                }
+            }
+        }
 
-    /*public int getPosition(int l, int i) {
-        if (map[l][i] instanceof casaCell){
-
+        /*
+        if (map[l][i] instanceof fonteCell){
+            neighbor(l,i);
         }
         else if (map[l][i] instanceof curvaCell);
         else if (map[l][i] instanceof espacoCell);
-        else if (map[l][i] instanceof fonteCell);
+        else if (map[l][i] instanceof casaCell);
         else if (map[l][i] instanceof linhaCell);
         else if (map[l][i] instanceof ramoCell);
-    }*/
+        */
+    }
+
+    private void neighbor(int l, int i){
+
+        try {
+            map_neighbors[0] = map[l][i-1];
+            cell_neighbors_position[0] = cell_position[l][i-1];
+            }
+        catch (Exception e){
+            map_neighbors[0] = null;
+            cell_neighbors_position[0] = 4;
+        }
+
+        try {
+            map_neighbors[1] = map[l-1][i];
+            cell_neighbors_position[1] = cell_position[l-1][i];
+        }
+        catch (Exception e){
+            map_neighbors[1] = null;
+            cell_neighbors_position[1] =  4;
+        }
+
+        try {
+            map_neighbors[2] = map[l][i+1];
+            cell_neighbors_position[2] = cell_position[l][i+1];
+        }
+        catch (Exception e){
+            map_neighbors[2] = null;
+            cell_neighbors_position[2] =  4;
+        }
+
+        try {
+            map_neighbors[3] = map[l+1][i];
+            cell_neighbors_position[3] = cell_position[l+1][i];
+        }
+        catch (Exception e){
+            map_neighbors[3] = null;
+            cell_neighbors_position[3] =  4;
+        }
+    }
+
+    private void howTouchMe(){
+
+    }
+
 
 }
 

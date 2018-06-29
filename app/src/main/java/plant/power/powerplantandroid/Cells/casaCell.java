@@ -8,15 +8,27 @@ import plant.power.powerplantandroid.Model.Cell;
 
 public class casaCell extends Cell {
 
-    public int rot;
+    private boolean[] side;
 
     public void casaCell(){
-        if (rot == 3)rot = 0;
-        rot++;
     }
 
-    public int getcasaCellRot(){
-        return rot;
+    public boolean[] getSideCell(int pos){
+        switch (pos) {
+            case 0:
+                side = new boolean[]{true, false, false, false};
+                break;
+            case 1:
+                side = new boolean[]{false, true, false, false};
+                break;
+            case 2:
+                side = new boolean[]{false, false, true, false};
+                break;
+            case 3:
+                side = new boolean[]{false, false, false, true};
+                break;
+        }
+        return side;
     }
 
 }

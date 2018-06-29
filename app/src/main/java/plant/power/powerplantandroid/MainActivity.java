@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
 
         tilePanel = findViewById(R.id.tilepanel);
 
-        num = 0;
+        num = 1;
         loadLevel(num);
 
         tilePanel.setListener(this);
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
                 else if (model.getCell(w,h) instanceof ramoCell) tilePanel.setTile(w,h,new TeeTile(model.getCellPosition(w,h)));
             }
         }
+        model.cellRules();
     }
 
     @Override
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnTileTouchListen
         else if (model.getCell(xTile,yTile) instanceof fonteCell) tilePanel.setTile(xTile,yTile,new PowerTile(model.getCellPosition(xTile,yTile), this));
         else if (model.getCell(xTile,yTile) instanceof linhaCell) tilePanel.setTile(xTile,yTile,new LineTile(model.getCellPosition(xTile,yTile)));
         else if (model.getCell(xTile,yTile) instanceof ramoCell) tilePanel.setTile(xTile,yTile,new TeeTile(model.getCellPosition(xTile,yTile)));
+        Log.i("position: ", ""+model.cell_position[xTile][yTile]);
+        model.cellRules();
         return false;
     }
 
